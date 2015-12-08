@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   def index
     # Exchange your oauth_token and oauth_token_secret for an AccessToken instance.
     def prepare_access_token(oauth_token, oauth_token_secret)
-        consumer = OAuth::Consumer.new("dy7pBijUpEhI8JmvvAE6qQ6ZY", "BW4SPUAZ6dsTUzkOYGNtEUSM3EhcXiArDFECRCNufdBK2PdfxM", { :site => "https://api.twitter.com", :scheme => :header })
+        consumer = OAuth::Consumer.new(CONFIG['twitter_consumer_key'], CONFIG['twitter_consumer_secret'], { :site => "https://api.twitter.com", :scheme => :header })
 
         # now create the access token object from passed values
         token_hash = { :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret }
