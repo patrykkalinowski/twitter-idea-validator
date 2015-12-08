@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
            uid:auth.uid,
            email:auth.uid+"@twitter.com",
            password:Devise.friendly_token[0,20],
+           token: auth.credentials.token,
+           secret: auth.credentials.secret
          )
       end
 
