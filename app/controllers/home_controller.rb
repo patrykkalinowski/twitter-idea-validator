@@ -1,11 +1,14 @@
 class HomeController < ApplicationController
   before_action :authenticate_user!
 
+  @@logger = Logger.new(STDOUT)
+
   def index
     twitter = Twitter.new(current_user)
 
-    @data = twitter.search("elephant")
+    results = twitter.search("elephant")
+    @data = JSON.parse(results)
 
-    @data = JSON.parse(@data)
+    @@logger.info @data['statuses'].count
   end
 end

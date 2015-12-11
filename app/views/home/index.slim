@@ -1,0 +1,9 @@
+h1 Home#index
+p Find me in app/views/home/index.html.erb
+
+- @data['statuses'].each do |status|
+  h3= status['id']
+  p= status['created_at']
+  p= status['text']
+  hr
+  
