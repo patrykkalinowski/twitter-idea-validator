@@ -15,7 +15,7 @@ class Twitter
   end
 
   def search(query)
-    get_response("https://api.twitter.com/1.1/search/tweets.json?q=" + query).body
+    get_response("https://api.twitter.com/1.1/search/tweets.json?count=100&q=" + query).body
   end
 
   def prepare_access_token(oauth_token, oauth_token_secret)

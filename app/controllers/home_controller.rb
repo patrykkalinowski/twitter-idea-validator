@@ -6,8 +6,11 @@ class HomeController < ApplicationController
   def index
     twitter = Twitter.new(current_user)
 
-    results = twitter.search("elephant")
+    results = twitter.search("market validation")
     @data = JSON.parse(results)
+
+    Sentimental.load_defaults
+    @sentiment = Sentimental.new
 
     @@logger.info @data['statuses'].count
   end
