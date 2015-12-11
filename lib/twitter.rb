@@ -10,12 +10,20 @@ class Twitter
     access_token.request(:get, url)
   end
 
+  def post_response(url)
+    access_token.request(:post, url)
+  end
+
   def home_timeline
     get_response("https://api.twitter.com/1.1/statuses/home_timeline.json").body
   end
 
   def search(query)
     get_response("https://api.twitter.com/1.1/search/tweets.json?count=100&q=" + query).body
+  end
+
+  def favorite(id)
+    post_response("https://api.twitter.com/1.1/favorites/create.json?id=" + id.to_s)
   end
 
   def prepare_access_token(oauth_token, oauth_token_secret)
