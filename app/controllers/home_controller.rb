@@ -10,7 +10,16 @@ class HomeController < ApplicationController
   def validate
     twitter = Twitter.new(current_user)
 
-    results = twitter.search("market validation")
+    # find last search by this user
+    last_search = TwitterSearch.where(user_id: current_user.id).order("created_at").first
+
+    # search twitter for given keyword, for tweets newer than in last search
+    if last_search
+      results = twitter.search_with_id("market validation", last_search.last_tweet_id)
+    else
+      results = twitter.search("market validation")
+    end
+
     data = JSON.parse(results)
 
     Sentimental.load_defaults
@@ -19,10 +28,14 @@ class HomeController < ApplicationController
     @@logger.info "#{data['statuses'].count} statuses found"
 
     data['statuses'].each do |status|
-      if sentiment.get_score(status['text']) > 0
+      if sentiment.get_score(status['text']) >= 0
         twitter.favorite(status['id'])
         @@logger.info "Favorited: #{status['id']}, #{status['text']}"
       end
+    end
+
+    if data['statuses'].count > 0
+      TwitterSearch.create(user_id: current_user.id, last_tweet_id: data['statuses'].first['id'])
     end
   end
 end

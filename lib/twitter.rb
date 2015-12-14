@@ -19,7 +19,11 @@ class Twitter
   end
 
   def search(query)
-    get_response("https://api.twitter.com/1.1/search/tweets.json?count=100&q=" + query).body
+    get_response("https://api.twitter.com/1.1/search/tweets.json?count=100&q=#{query}").body
+  end
+
+  def search_with_id(query, last_tweet_id)
+    get_response("https://api.twitter.com/1.1/search/tweets.json?count=100&since_id=#{last_tweet_id}&q=#{query}").body
   end
 
   def favorite(id)
