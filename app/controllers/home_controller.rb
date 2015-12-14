@@ -8,7 +8,7 @@ class HomeController < ApplicationController
   end
 
   def validate
-    query = "validate market"
+    query = params["query"]
     twitter = Twitter.new(current_user)
 
     # find last search by this user
@@ -29,7 +29,7 @@ class HomeController < ApplicationController
     @@logger.info "#{data['statuses'].count} statuses found"
 
     data['statuses'].each do |status|
-      if sentiment.get_score(status['text']) >= 0
+      if sentiment.get_score(status['text']) >= 0 && status['favorited'] == false
         twitter.favorite(status['id'])
         @@logger.info "Favorited: #{status['id']}, #{status['text']}"
       end
