@@ -8,16 +8,17 @@ class HomeController < ApplicationController
   end
 
   def validate
+    query = "validate market"
     twitter = Twitter.new(current_user)
 
     # find last search by this user
-    last_search = TwitterSearch.where(user_id: current_user.id).order("created_at").first
+    last_search = TwitterSearch.where(user_id: current_user.id, query: query).order("created_at").first
 
     # search twitter for given keyword, for tweets newer than in last search
     if last_search
-      results = twitter.search_with_id("market validation", last_search.last_tweet_id)
+      results = twitter.search_with_id(query, last_search.last_tweet_id)
     else
-      results = twitter.search("market validation")
+      results = twitter.search(query)
     end
 
     data = JSON.parse(results)
@@ -35,7 +36,7 @@ class HomeController < ApplicationController
     end
 
     if data['statuses'].count > 0
-      TwitterSearch.create(user_id: current_user.id, last_tweet_id: data['statuses'].first['id'])
+      TwitterSearch.create(user_id: current_user.id, query: query, last_tweet_id: data['statuses'].first['id'])
     end
   end
 end
