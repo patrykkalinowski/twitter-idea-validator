@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151225175127) do
+ActiveRecord::Schema.define(version: 20151225215151) do
+
+  create_table "keywords", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "keyword"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.boolean  "follow"
+    t.boolean  "favorite"
+    t.decimal  "min_sentiment"
+    t.decimal  "max_sentiment"
+  end
 
   create_table "twitter_searches", force: :cascade do |t|
     t.integer  "user_id"

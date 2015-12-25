@@ -8,6 +8,7 @@ class HomeController < ApplicationController
   end
 
   def dashboard
+    @monitored_keywords = Keyword.where(user_id: current_user)
   end
 
   def validate
