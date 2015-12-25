@@ -30,6 +30,9 @@ class Twitter
     post_response("https://api.twitter.com/1.1/favorites/create.json?id=" + id.to_s)
   end
 
+  def follow(id)
+    post_response("https://api.twitter.com/1.1/friendships/create.json?user_id=#{id.to_s}&follow=true")
+
   def prepare_access_token(oauth_token, oauth_token_secret)
       # Exchange your oauth_token and oauth_token_secret for an AccessToken instance.
       consumer = OAuth::Consumer.new(CONFIG['twitter_consumer_key'], CONFIG['twitter_consumer_secret'], { :site => "https://api.twitter.com", :scheme => :header })

@@ -7,6 +7,9 @@ class HomeController < ApplicationController
 
   end
 
+  def dashboard
+  end
+
   def validate
     query = params["query"]
     twitter = Twitter.new(current_user)

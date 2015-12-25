@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214215501) do
+ActiveRecord::Schema.define(version: 20151225175127) do
 
   create_table "twitter_searches", force: :cascade do |t|
     t.integer  "user_id"
@@ -38,6 +38,9 @@ ActiveRecord::Schema.define(version: 20151214215501) do
     t.string   "uid"
     t.string   "token"
     t.string   "secret"
+    t.string   "name"
+    t.string   "nickname"
+    t.string   "image"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
