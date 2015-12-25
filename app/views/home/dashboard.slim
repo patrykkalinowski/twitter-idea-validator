@@ -6,3 +6,12 @@ h2 Your account
 h2 Monitored keywords
 - @monitored_keywords.each do |keyword|
   p= keyword.keyword
+  
+  
+= form_for @keyword do |f|
+  = f.text_field :keyword
+  = f.label "Follow"
+  = f.check_box :follow
+  = f.label "Favorite"
+  = f.check_box :favorite
+  = f.submit "Add keyword"
