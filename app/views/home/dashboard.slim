@@ -5,8 +5,10 @@ h2 Your account
 
 h2 Monitored keywords
 - @monitored_keywords.each do |keyword|
-  p= keyword.keyword
-  
+  p
+    |
+    = keyword.keyword
+    = link_to "Delete", keyword, method: :delete
   
 = form_for @keyword do |f|
   = f.text_field :keyword

@@ -7,6 +7,12 @@ class KeywordsController < ApplicationController
     redirect_to dashboard_path
   end
 
+  def destroy
+    Keyword.destroy(params['id'])
+
+    redirect_to dashboard_path
+  end
+
   private
 
   def keywords_params
