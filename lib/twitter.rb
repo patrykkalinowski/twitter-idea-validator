@@ -1,9 +1,9 @@
 class Twitter
   attr_accessor :access_token
 
-  def initialize(current_user)
+  def initialize(user)
     # Exchange our oauth_token and oauth_token secret for the AccessToken instance.
-    @access_token = prepare_access_token(current_user.token, current_user.secret)
+    @access_token = prepare_access_token(user.token, user.secret)
   end
 
   def get_response(url)
@@ -32,6 +32,7 @@ class Twitter
 
   def follow(id)
     post_response("https://api.twitter.com/1.1/friendships/create.json?user_id=#{id.to_s}&follow=true")
+  end
 
   def prepare_access_token(oauth_token, oauth_token_secret)
       # Exchange your oauth_token and oauth_token_secret for an AccessToken instance.

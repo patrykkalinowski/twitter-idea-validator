@@ -11,7 +11,7 @@ h2 Monitored keywords
     = link_to "Delete", keyword, method: :delete
   
 = form_for @keyword do |f|
-  = f.text_field :keyword
+  = f.text_field :keyword, required: true
   = f.label "Follow"
   = f.check_box :follow
   = f.label "Favorite"

@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
 
   @@logger = Logger.new(STDOUT)
 
@@ -13,11 +13,12 @@ class HomeController < ApplicationController
   end
 
   def validate
+    user = User.find 12
     query = params["query"]
-    twitter = Twitter.new(current_user)
+    twitter = Twitter.new(user)
 
     # find last search by this user
-    last_search = TwitterSearch.where(user_id: current_user.id, query: query).order("created_at").first
+    last_search = TwitterSearch.where(user_id: user.id, query: query).order("created_at").first
 
     # search twitter for given keyword, for tweets newer than in last search
     if last_search
@@ -41,7 +42,7 @@ class HomeController < ApplicationController
     end
 
     if data['statuses'].count > 0
-      TwitterSearch.create(user_id: current_user.id, query: query, last_tweet_id: data['statuses'].first['id'])
+      TwitterSearch.create(user_id: user.id, query: query, last_tweet_id: data['statuses'].first['id'])
     end
   end
 end
