@@ -4,12 +4,25 @@ h2 Your account
 
 
 h2 Monitored keywords
-- @monitored_keywords.each do |keyword|
-  p
-    |
-    = keyword.keyword
-    = link_to "Delete", keyword, method: :delete
+
+table
+  tr
+    th Keyword
+    th Follow
+    th Favorite
+  - @monitored_keywords.each do |keyword|
+    tr
+      td
+        = keyword.keyword
+      td 
+        = keyword.follow
+      td
+        = keyword.favorite
+      td 
+        = link_to "Delete", keyword, method: :delete
   
+hr 
+
 = form_for @keyword do |f|
   = f.text_field :keyword, required: true
   = f.label "Follow"
